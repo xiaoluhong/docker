@@ -16,11 +16,8 @@ RUN set -x; \
             libssl1.0-dev \
             xz-utils \
             python3-watchdog \
-        && curl -o wkhtmltox.tar.xz  https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-        && tar xvf wkhtmltox.tar.xz \
-        && cp wkhtmltox/lib/* /usr/local/lib/ \
-        && cp wkhtmltox/bin/* /usr/local/bin/ \
-        && cp -r wkhtmltox/share/man/man1 /usr/local/share/man/
+        && curl -o wkhtmltox.deb   https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb  \
+        && dpkg --force-depends -i wkhtmltox.deb
 
 # Install Odoo
 ENV ODOO_VERSION 11.0
