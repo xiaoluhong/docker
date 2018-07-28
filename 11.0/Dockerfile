@@ -1,5 +1,4 @@
 FROM debian:stretch
-MAINTAINER Odoo S.A. <info@odoo.com>
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
@@ -33,18 +32,21 @@ RUN set -x; \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
+        && pip3 install num2words xlwt  \
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
-RUN pip3 install num2words xlwt
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
 
 # Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons \
-        && chown -R odoo /mnt/extra-addons
-VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
+RUN     mkdir -p /var/lib/odoo/extra-addons/     \
+    &&  mkdir -p /var/lib/odoo/data/             \
+    &&  chown -R odoo /var/lib/odoo/             \
+    &&  chmod +x /entrypoint.sh
+        
+VOLUME ["/var/lib/odoo"]
 
 # Expose Odoo services
 EXPOSE 8069 8071
