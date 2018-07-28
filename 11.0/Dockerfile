@@ -27,7 +27,7 @@ RUN set -x; \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
-        && pip3 install num2words xlwt  \
+        && pip3 install num2words xlwt  phonenumbers\
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
