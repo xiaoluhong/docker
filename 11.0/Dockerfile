@@ -16,7 +16,7 @@ RUN set -x; \
             libssl1.0-dev \
             xz-utils \
             python3-watchdog \
-        && curl -o wkhtmltox.deb   https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb  \
+        && curl -o wkhtmltox.deb -SL  https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb  \
         && dpkg --force-depends -i wkhtmltox.deb
 
 # Install Odoo
